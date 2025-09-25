@@ -1,0 +1,60 @@
+{% extends "base.html" %}{% load static %}
+{% block content %}
+<div class="body m-5">
+  <div class="register-card">
+    <h2 class="text-center mb-4 text-purple fw-bold" style="color:#6f42c1;">Register</h2>
+    <div class="alert" role="alert">
+</div>
+    <form method="post">
+      {% csrf_token %}
+      {% for message in messages %}
+      <div
+        class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+
+
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+      </div>
+      <div class="mb-3">
+        <label for="role" class="form-label">Select Role</label>
+        <select class="form-select" id="role" name="role" required>
+          <option selected disabled>Choose your role</option>
+          <option value="Individual Student">Individual Student</option>
+          <option value="Academy">Academy</option>
+          <option value="NGO">NGO</option>
+
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+      </div>
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPassword" name="confirmpassword"
+          placeholder="Confirm password" required>
+      </div>
+      <div class="mb-3 d-none" id="otpInput">
+        <label for="otp" class="form-label">OTP</label>
+        <input type="number" class="form-control" id="otp" name="otp"
+          placeholder="OTP" required>
+      </div>
+<button type="button" id="otpBtn" class="btn btn-purple w-100" onclick="SendOtp()">GET OTP</button>
+<button type="button" id="sotpBtn" class="btn btn-purple w-100 d-none">Sending OTP...</button>
+      <button type="button" id="regBtn" class="btn btn-purple w-100 d-none" onclick="Register()">Register</button>
+    </form>
+    <p class="text-center mt-3 mb-0 text-muted">Already have an account? <a href="/login" class="text-purple"
+        style="color:#6f42c1; text-decoration:none;">Login</a></p>
+  </div>
+</div>
+{% endblock %}
